@@ -65,7 +65,7 @@ A modern full-stack e-commerce application built with **Spring Boot**, **React.j
 -------------------------------------------------------------------------------------
 # 📁 Project Structure
 
-
+```
 SalesSavvy
 │
 ├── backend
@@ -79,7 +79,7 @@ SalesSavvy
 │   └── ...
 │
 └── README.md
-
+```
 ------------------------------------------------------------------------------------
 # 🚧 Work in Progress
 
