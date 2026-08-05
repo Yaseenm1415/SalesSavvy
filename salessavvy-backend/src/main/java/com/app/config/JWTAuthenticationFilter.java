@@ -38,6 +38,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter{
 				"/refresh",
 				"/api/products",
 				"/api/products/{id}",
+				"/api/categories",
+				"/api/categories/{id}",
 				"/logout"
 			);
 	
@@ -64,8 +66,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter{
 		}
 		
 		if (!authService.validateAccessToken(accessToken)) {
-			filterChain.doFilter(request, response);
-			return;
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access token expired");			return;
 		}
 		
 		String username = authService.extractUsername(accessToken);

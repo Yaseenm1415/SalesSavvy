@@ -47,7 +47,7 @@ export default function Login() {
                         <label>Username</label>
                         <input 
                             type="text" 
-                            className="form-input-standard" 
+                            className="form-input" 
                             placeholder="Enter username" 
                             value={username} 
                             onChange={(e) => setUsername(e.target.value)}
@@ -59,7 +59,7 @@ export default function Login() {
                         <label>Password</label>
                         <input 
                             type="password" 
-                            className="form-input-standard" 
+                            className="form-input" 
                             placeholder="Enter password" 
                             value={password} 
                             onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +67,7 @@ export default function Login() {
                         />
                     </div>
 
-                    <button className="btn-primary-standard auth-btn" type="submit">Login</button>
+                    <button className="login-btn" type="submit">Login</button>
                 </form>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { getProductById } from "../services/productService";
 import { addToCart } from "../services/cartService";
 import "../css/productDetails.css";
 import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function ProductDetails() {
 
@@ -19,10 +20,10 @@ export default function ProductDetails() {
         }
         try {
             await addToCart(product.productId, 1);
-            alert("Product added to cart!");
+            toast.success("Product added to cart!");
         } catch (error) {
             console.error(error);
-            alert("Failed to add product.");
+            toast.error("Failed to add product.");
         }
     };
 
@@ -39,21 +40,21 @@ export default function ProductDetails() {
     }, [id]);
 
     if (!product) {
-        return <h2>Loading...</h2>
+        return <div className="loading-indicator">Loading product details...</div>
     }
 
     return (
         <div className="product-details-container">
             <div className="product-gallery-section">
                 <div className="main-image-wrapper">
-                    <img src={`http://localhost:9090${product.imageUrls?.[selectedImage]}`}
+                    <img src={`http://localhost:9090${product.images?.[selectedImage]?.imageUrl}`}
                         alt={product.name} />
                 </div>
 
                 <div className="thumbnails-wrapper">
-                    {product.imageUrls?.map((image, index) => (
-                        <img src={`http://localhost:9090${image}`}
-                            key={index}
+                    {product.images?.map((image, index) => (
+                        <img src={`http://localhost:9090${image.imageUrl}`}
+                            key={image.imageId}
                             className={selectedImage === index ? "active" : ""}
                             alt=""
                             onClick={() => setSelectedImage(index)} />
@@ -66,7 +67,7 @@ export default function ProductDetails() {
                 
                 <div className="product-meta-info">
                     <span className="meta-item">
-                        <strong>Category:</strong> {product.categoryName}
+                        <strong>Category:</strong> {product.category?.categoryName}
                     </span>
                     <span className="meta-item">
                         <strong>Stock:</strong> {product.stock} units
@@ -90,7 +91,7 @@ export default function ProductDetails() {
                 </div>
                 
                 <button 
-                    className="add-to-cart-btn" 
+                    className="add-to-cart-btn btn-click-effect" 
                     disabled={product.stock <= 0}
                     onClick={handleAddTocart}
                 >

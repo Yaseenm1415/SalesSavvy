@@ -8,17 +8,17 @@ export default function Orders() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        loadOrders();
-    }, [])
+        const loadOrders = async () => {
+            try {
+                const response = await getOrders();
+                setOrders(response);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-    const loadOrders = async () => {
-        try {
-            const response = await getOrders();
-            setOrders(response);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+        loadOrders();
+    }, []);
 
     if (orders.length === 0) {
         return (
@@ -26,7 +26,7 @@ export default function Orders() {
                 <div className="empty-orders-icon">📦</div>
                 <h2>No Orders Found</h2>
                 <p>Looks like you haven't placed any orders yet.</p>
-                <button className="btn-primary-standard" onClick={() => navigate("/")}>
+                <button className="btn-primary-standard btn-click-effect" onClick={() => navigate("/")}>
                     Start Shopping
                 </button>
             </div>
@@ -64,7 +64,7 @@ export default function Orders() {
                         </div>
 
                         <button
-                            className="btn-secondary-standard view-details-btn"
+                            className="btn-secondary-standard view-details-btn btn-click-effect"
                             onClick={() => navigate(`/orders/${order.orderId}`)}>
                             View Details
                         </button>

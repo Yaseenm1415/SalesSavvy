@@ -37,7 +37,7 @@ public class AdminOrderController {
 
 	}
 
-	@PutMapping("/{orderId}")
+	@PutMapping("/{orderId}/status")
 	public ResponseEntity<?> updateOrderStatus(@PathVariable int orderId, @RequestBody UpdateOrderStatusRequest request,
 			HttpServletRequest httpRequest) {
 

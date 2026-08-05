@@ -161,15 +161,38 @@
         font-size: 20px;
     }
     
+    .nav-links {
+        gap: 4px;
+    }
+    
     .nav-links a, 
     .nav-links button {
-        padding: 8px 10px;
+        padding: 8px 12px;
         font-size: 12px;
     }
     
     .nav-links a::before, 
     .nav-links button::before {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav-link-text {
+        display: none;
+    }
+    
+    .nav-links a, 
+    .nav-links button {
+        padding: 10px;
+        border-radius: var(--radius-full);
+        justify-content: center;
+        width: 40px;
+    }
+    
+    .nav-links a::before, 
+    .nav-links button::before {
+        margin: 0;
     }
 }

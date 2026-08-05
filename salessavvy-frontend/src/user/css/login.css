@@ -1,101 +1,135 @@
-/* Auth Pages Shared Styles (Login & Register) */
+/* Page */
 
-.auth-page-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - var(--header-height) - 120px);
-    width: 100%;
-    padding: 20px 0;
+.auth-page-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#eef4ff,#f8fbff);
+    padding:20px;
 }
 
-.auth-card {
-    width: 100%;
-    max-width: 440px;
-    background: var(--bg-card);
-    padding: 40px 36px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-    transition: var(--transition-smooth);
+/* Card */
+
+.auth-card{
+    width:100%;
+    max-width:430px;
+    background:#fff;
+    border-radius:18px;
+    padding:40px 35px;
+    box-shadow:0 20px 45px rgba(15,23,42,.12);
+    border:1px solid #edf2f7;
 }
 
-.auth-card:hover {
-    box-shadow: var(--shadow-premium);
+/* Title */
+
+.auth-title{
+    text-align:center;
+    font-size:2.2rem;
+    font-weight:800;
+    color:#1e293b;
+    margin-bottom:8px;
 }
 
-.auth-title {
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--text-main);
-    letter-spacing: -0.75px;
+.auth-title::after{
+    content:"Savvy";
+    color:#2563eb;
 }
 
-.auth-title::after {
-    content: " ➔";
-    color: var(--primary);
-    font-size: 20px;
+/* Subtitle */
+
+.auth-subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:30px;
+    font-size:.95rem;
 }
 
-.auth-subtitle {
-    text-align: center;
-    color: var(--text-muted);
-    margin-bottom: 32px;
-    font-size: 14px;
-    font-weight: 500;
+/* Form */
+
+.login-form{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 24px;
-    text-align: left;
+.form-group{
+    display:flex;
+    flex-direction:column;
 }
 
-.form-group label {
-    margin-bottom: 8px;
-    font-weight: 700;
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+    font-size:.95rem;
 }
 
-.error-message {
-    color: var(--error);
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 12px 16px;
-    background: var(--error-light);
-    border: 1.5px solid #fecaca;
-    border-radius: var(--radius-md);
-    font-size: 14px;
-    font-weight: 600;
+/* Inputs */
+
+.form-input{
+    padding:14px 16px;
+    border:1px solid #dbe4f0;
+    border-radius:10px;
+    font-size:15px;
+    transition:.3s;
+    background:#fff;
 }
 
-.auth-btn {
-    margin-top: 12px;
-    width: 100%;
+.form-input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
 }
 
-.login-link {
-    margin-top: 24px;
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-muted);
+/* Button */
+
+.login-btn{
+    margin-top:10px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#346eea;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
 }
 
-.login-link a {
-    text-decoration: none;
-    color: var(--primary);
-    font-weight: 700;
-    margin-left: 4px;
-    transition: var(--transition-smooth);
+.login-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(37,99,235,.25);
 }
 
-.login-link a:hover {
-    color: var(--primary-hover);
-    text-decoration: underline;
+/* Error */
+
+.error-message{
+    background:#fee2e2;
+    color:#dc2626;
+    border:1px solid #fecaca;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:18px;
+    text-align:center;
+    font-size:.9rem;
+}
+
+/* Mobile */
+
+@media(max-width:600px){
+
+    .auth-card{
+        padding:30px 24px;
+        border-radius:14px;
+    }
+
+    .auth-title{
+        font-size:1.9rem;
+    }
+
+    .login-btn{
+        width:100%;
+    }
 }

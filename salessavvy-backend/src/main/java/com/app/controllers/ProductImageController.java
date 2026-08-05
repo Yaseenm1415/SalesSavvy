@@ -23,9 +23,9 @@ public class ProductImageController {
 	}
 
 	@PostMapping("/admin/products/{productId}/images")
-	public ResponseEntity<?> uploadImage(@PathVariable int productId, @RequestParam("file") MultipartFile file) {
+	public ResponseEntity<?> uploadImage(@PathVariable int productId, @RequestParam("images") MultipartFile[] files) {
 
-		return ResponseEntity.ok(productImageService.uploadImage(productId, file));
+		return ResponseEntity.ok(productImageService.uploadImages(productId, files));
 
 	}
 
@@ -36,7 +36,7 @@ public class ProductImageController {
 
 	}
 
-	@DeleteMapping("/admin/product-images/{imageId}")
+	@DeleteMapping("/admin/products/images/{imageId}")
 	public ResponseEntity<?> deleteImage(@PathVariable int imageId) {
 
 		productImageService.deleteImage(imageId);

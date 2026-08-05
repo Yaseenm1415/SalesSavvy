@@ -19,8 +19,12 @@ import Categories from "../admin/pages/Categories";
 import Dashboard from "../admin/pages/Dashboard";
 import AdminOrders from "../admin/pages/AdminOrders";
 import Products from "../admin/pages/Products";
-import Users from "../admin/pages/Users";
 import AdminRoute from "./AdminRoute";
+import NewProduct from "../admin/pages/NewProduct";
+import EditProduct from "../admin/pages/EditProduct";
+import NewCategory from "../admin/pages/NewCategory";
+import EditCategory from "../admin/pages/EditCategory";
+import AdminOrderDetails from "../admin/pages/AdminOrderDetails";
 
 function AppRoutes() {
     return (
@@ -54,10 +58,14 @@ function AppRoutes() {
             <Route element={<AdminRoute />}>
                 <Route element={<AdminLayout />}>
                     <Route path="/admin/dashboard" element={<Dashboard />} />
-                    <Route path="/admin/products" element={<Products />} />
-                    <Route path="/admin/categories" element={<Categories />} />
                     <Route path="/admin/orders" element={<AdminOrders />} />
-                    <Route path="/admin/users" element={<Users />} />
+                    <Route path="/admin/products" element={<Products />} />
+                    <Route path="/admin/products/new" element={<NewProduct />} />
+                    <Route path="/admin/products/edit/:id" element={<EditProduct />} />
+                    <Route path="/admin/categories" element={<Categories />} />
+                    <Route path="/admin/categories/new" element={<NewCategory />} />
+                    <Route path="/admin/categories/edit/:id" element={<EditCategory />} />
+                    <Route path="/admin/orders/:id" element={<AdminOrderDetails />} />
                 </Route>
             </Route>
         </Routes>

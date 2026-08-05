@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getOrderById } from "../services/orderService";
+import { cancelOrder } from "../services/orderService";
 import "../css/orders.css";
 import { createRazorpayOrder, verifyPayment } from "../services/paymentService";
+import { toast } from "react-toastify";
 
 export default function OrderDetails() {
 
     const { orderId } = useParams();
     const [order, setOrder] = useState();
-
-    useEffect(() => {
-        loadOrder();
-    }, []);
 
     const loadOrder = async () => {
         try {
@@ -21,6 +19,12 @@ export default function OrderDetails() {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orderId]);
 
     if (!order) {
         return <div className="loading-indicator">Loading order details...</div>
@@ -51,6 +55,29 @@ export default function OrderDetails() {
 
     };
 
+    const handleCancelOrder = async () => {
+
+        const confirmCancel = window.confirm(
+            "Are you sure you want to cancel this order?"
+        );
+
+        if (!confirmCancel) return;
+
+        try {
+
+            await cancelOrder(order.orderId);
+
+            toast.success("Order cancelled successfully!");
+
+            loadOrder();
+
+        } catch (error) {
+
+            console.error(error);
+            toast.error(error.response?.data || "Failed to cancel order.");
+
+        }
+    };
 
     return (
         <div className="order-details-container">
@@ -76,7 +103,7 @@ export default function OrderDetails() {
                     {order.items.map(item => (
                         <div key={item.productId} className="order-item-row">
                             <div className="item-img-container">
-                                <img src={`http://localhost:9090${item.imageUrls}`}
+                                <img src={`http://localhost:9090${item.imageUrl}`}
                                     alt={item.productName} />
                             </div>
                             <div className="item-details-container">
@@ -107,11 +134,26 @@ export default function OrderDetails() {
                         <div className="summary-row total-row">
                             <span>Total Amount</span>
                             <strong>₹{order.totalAmount}</strong>
-                            {order.status === "PENDING" && (
-                                <button className="pay-button" onClick={handlePayment}>
-                                    Pay Now
-                                </button>
-                            )}
+                        </div>
+                        {order.status === "PENDING" && (
+                            <button className="pay-button btn-click-effect" onClick={handlePayment}>
+                                Pay Now
+                            </button>
+                        )}
+                        <div className="order-actions">
+
+                            {(order.status === "PENDING" ||
+                                order.status === "CONFIRMED") && (
+
+                                    <button
+                                        className="cancel-btn btn-click-effect"
+                                        onClick={handleCancelOrder}
+                                    >
+                                        Cancel Order
+                                    </button>
+
+                                )}
+
                         </div>
                     </div>
                 </div>

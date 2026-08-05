@@ -1,0 +1,149 @@
+.admin-orders {
+    padding: 30px;
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    font-size: 28px;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+.orders-table thead {
+    background: #2563eb;
+    color: white;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 16px 20px;
+    text-align: left;
+}
+
+.orders-table th {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.orders-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: 0.2s;
+}
+
+.orders-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.orders-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.orders-table td {
+    color: #334155;
+    font-size: 15px;
+}
+
+/* Status Badge */
+
+.status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Pending */
+
+.status.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* Confirmed */
+
+.status.confirmed {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* Shipped */
+
+.status.shipped {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+/* Delivered */
+
+.status.delivered {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+/* Cancelled */
+
+.status.cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* View Button */
+
+.view-btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.view-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Empty Row */
+
+.orders-table td[colspan] {
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .admin-orders {
+        padding: 15px;
+    }
+
+    .orders-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+}

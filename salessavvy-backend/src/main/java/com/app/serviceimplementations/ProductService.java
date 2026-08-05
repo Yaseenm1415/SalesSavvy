@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.dto.ProductImageResponse;
 import com.app.dto.ProductRequest;
 import com.app.dto.ProductResponse;
 import com.app.entities.Category;
@@ -111,11 +112,13 @@ public class ProductService implements ProductServiceContract{
 				
 		return products.map(product -> {
 			List<ProductImage> images = productImageRepository.findByProductProductId(product.getProductId());
-			ArrayList<String> imageUrls = new ArrayList<>();
-			 for(ProductImage image : images) {
-				 imageUrls.add(image.getImageUrl());
-			 }
-			return new ProductResponse(product.getProductId(), product.getName(), product.getDescription(), product.getPrice(), product.getStock(), product.getCategory().getCategoryName(), imageUrls);
+			List<ProductImageResponse> imageResponses = new ArrayList<>(); 
+			for(ProductImage image : images) {
+				
+				ProductImageResponse imageResponse = new ProductImageResponse(image.getImageId(), image.getImageUrl());
+				imageResponses.add(imageResponse);
+			}
+			return new ProductResponse(product.getProductId(), product.getName(), product.getDescription(), product.getPrice(), product.getStock(), product.getCategory(), imageResponses);
 		});
 		
 	}
@@ -124,11 +127,13 @@ public class ProductService implements ProductServiceContract{
 	public ProductResponse getProductById(int productId) {
 		Product product =  productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product not found"));
 		List<ProductImage> images = productImageRepository.findByProductProductId(product.getProductId());
-		ArrayList<String> imageUrls = new ArrayList<>();
-		 for(ProductImage image : images) {
-			 imageUrls.add(image.getImageUrl());
-		 }
-		return new ProductResponse(product.getProductId(), product.getName(), product.getDescription(), product.getPrice(), product.getStock(), product.getCategory().getCategoryName(), imageUrls);
+		List<ProductImageResponse> imageResponses = new ArrayList<>(); 
+		for(ProductImage image : images) {
+			
+			ProductImageResponse imageResponse = new ProductImageResponse(image.getImageId(), image.getImageUrl());
+			imageResponses.add(imageResponse);
+		}
+		return new ProductResponse(product.getProductId(), product.getName(), product.getDescription(), product.getPrice(), product.getStock(), product.getCategory(), imageResponses);
 	}
 
 	

@@ -18,3 +18,8 @@ export const getOrderById = async (orderId) => {
 
     return response.data;
 };
+
+export const cancelOrder = async (orderId) => {
+    const response = await api.put(`/api/orders/${orderId}/cancel`);
+    return response.data;
+};

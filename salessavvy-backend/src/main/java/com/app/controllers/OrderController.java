@@ -1,10 +1,13 @@
 package com.app.controllers;
 
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,5 +62,21 @@ public class OrderController {
 
 		return ResponseEntity.ok(orderService.getOrderById(orderId, user));
 
+	}
+	
+	@PutMapping("/orders/{orderId}/cancel")
+	public ResponseEntity<?> cancelOrder(
+	        @PathVariable int orderId,
+	        HttpServletRequest request) {
+
+	    User user = (User) request.getAttribute("authenticatedUser");
+
+	    if (user == null) {
+	        throw new RuntimeException("Unauthenticated");
+	    }
+	    
+	    orderService.cancelOrder(orderId, user.getUserId());
+
+	    return ResponseEntity.ok(Map.of("message", "Order cancelled successfully"));
 	}
 }

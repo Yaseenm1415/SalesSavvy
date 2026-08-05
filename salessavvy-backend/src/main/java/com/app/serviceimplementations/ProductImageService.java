@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -32,12 +33,17 @@ public class ProductImageService implements ProductImageServiceContract {
 	}
 
 	@Override
-	public ProductImage uploadImage(int productId, MultipartFile file) {
+	public List<ProductImage>  uploadImages(int productId, MultipartFile[] files) {
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new NotFoundException("product not found"));
 
 		String uploadDi = "uploads/";
-
+		
+		List<ProductImage> uploadedImages = new ArrayList<>();
+		
+		for(MultipartFile file : files) {
+			
+		
 		String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
 
 		Path path = Paths.get(uploadDi, fileName);
@@ -53,8 +59,9 @@ public class ProductImageService implements ProductImageServiceContract {
 
 		image.setProduct(product);
 		image.setImageUrl("/uploads/" + fileName);
-
-		return productImageRepository.save(image);
+		uploadedImages.add(productImageRepository.save(image));
+	}
+		return uploadedImages;
 
 	}
 

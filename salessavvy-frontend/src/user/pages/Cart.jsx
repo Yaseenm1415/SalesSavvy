@@ -3,12 +3,11 @@ import { getCart, updateQuantity, removeFromCart } from "../services/cartService
 import { placeOrder } from "../services/orderService";
 import { useNavigate } from "react-router-dom";
 import "../css/cart.css";
+import { toast } from "react-toastify";
+
 export default function Cart() {
     const [cartItems, setcartItems] = useState([]);
     const navigate = useNavigate();
-    useEffect(() => {
-        loadCart();
-    }, []);
 
     const loadCart = async () => {
         try {
@@ -18,6 +17,11 @@ export default function Cart() {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadCart();
+    }, []);
 
     const increaseQuantity = async (item) => {
         await updateQuantity(item.cartId, item.quantity + 1);
@@ -48,11 +52,11 @@ export default function Cart() {
         try {
             const cartItemsIds = cartItems.map(item => item.cartId);
             await placeOrder(cartItemsIds);
-            alert("Order placed successfully!");
+            toast.success("Order placed successfully!");
             navigate("/orders");
         } catch (error) {
             console.error(error);
-            alert("Failed to place order.");
+            toast.error("Failed to place order.");
         }
     }
 
@@ -62,7 +66,7 @@ export default function Cart() {
                 <div className="empty-cart-icon">🛒</div>
                 <h2>Your cart is empty</h2>
                 <p>Looks like you haven't added anything to your cart yet.</p>
-                <button className="btn-primary-standard" onClick={() => navigate("/")}>
+                <button className="btn-primary-standard btn-click-effect" onClick={() => navigate("/")}>
                     Start Shopping
                 </button>
             </div>
@@ -92,12 +96,12 @@ export default function Cart() {
                                 
                                 <div className="item-controls-row">
                                     <div className="quantity-selector">
-                                        <button className="qty-btn" onClick={() => decreaseQuantity(item)}>-</button>
+                                        <button className="qty-btn btn-click-effect" onClick={() => decreaseQuantity(item)}>-</button>
                                         <span className="qty-value">{item.quantity}</span>
-                                        <button className="qty-btn" onClick={() => increaseQuantity(item)}>+</button>
+                                        <button className="qty-btn btn-click-effect" onClick={() => increaseQuantity(item)}>+</button>
                                     </div>
                                     
-                                    <button className="remove-item-btn" onClick={() => handleRemove(item.cartId)}>
+                                    <button className="remove-item-btn btn-click-effect" onClick={() => handleRemove(item.cartId)}>
                                         Remove
                                     </button>
                                 </div>
@@ -130,7 +134,7 @@ export default function Cart() {
                             </div>
                         </div>
                         
-                        <button className="proceed-checkout-btn" onClick={handleCheckout}>
+                        <button className="proceed-checkout-btn btn-click-effect" onClick={handleCheckout}>
                             Proceed to Checkout
                         </button>
                     </div>

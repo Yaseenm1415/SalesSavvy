@@ -102,7 +102,7 @@ public class OrderService implements OrderServiceContract {
 			cartRepository.delete(cart);
 		}
 
-		return new OrderResponse(savedOrder.getOrderId(), savedOrder.getTotalAmount(), savedOrder.getStatus().name(),
+		return new OrderResponse(savedOrder.getOrderId(), savedOrder.getUser().getUsername(), savedOrder.getUser().getEmail(),savedOrder.getTotalAmount(), savedOrder.getStatus().name(),
 				savedOrder.getCreatedAt(), itemResponses);
 
 	}
@@ -128,7 +128,7 @@ public class OrderService implements OrderServiceContract {
 						));
 			}
 
-			orderResponses.add(new OrderResponse(order.getOrderId(), order.getTotalAmount(), order.getStatus().name(),
+			orderResponses.add(new OrderResponse(order.getOrderId(), order.getUser().getUsername(), order.getUser().getEmail(),order.getTotalAmount(), order.getStatus().name(),
 					order.getCreatedAt(), itemResponses));
 		}
 		return orderResponses;
@@ -152,7 +152,7 @@ public class OrderService implements OrderServiceContract {
 					item.getQuantity(), item.getPriceAtPurchase(), item.getSubtotal(), imageUrl));
 		}
 
-		return new OrderResponse(order.getOrderId(), order.getTotalAmount(), order.getStatus().name(),
+		return new OrderResponse(order.getOrderId(), order.getUser().getUsername(), order.getUser().getEmail(),order.getTotalAmount(), order.getStatus().name(),
 				order.getCreatedAt(), itemResponses);
 	}
 
@@ -178,7 +178,7 @@ public class OrderService implements OrderServiceContract {
 						));
 			}
 
-			orderResponses.add(new OrderResponse(order.getOrderId(), order.getTotalAmount(), order.getStatus().name(),
+			orderResponses.add(new OrderResponse(order.getOrderId(), order.getUser().getUsername(), order.getUser().getEmail(),order.getTotalAmount(), order.getStatus().name(),
 					order.getCreatedAt(), itemResponses));
 		}
 		return orderResponses;
@@ -200,7 +200,7 @@ public class OrderService implements OrderServiceContract {
 					item.getQuantity(), item.getPriceAtPurchase(), item.getSubtotal(), imageUrl));
 		}
 
-		return new OrderResponse(order.getOrderId(), order.getTotalAmount(), order.getStatus().name(),
+		return new OrderResponse(order.getOrderId(), order.getUser().getUsername(), order.getUser().getEmail(),order.getTotalAmount(), order.getStatus().name(),
 				order.getCreatedAt(), itemResponses);
 	}
 
@@ -222,9 +222,32 @@ public class OrderService implements OrderServiceContract {
 					item.getQuantity(), item.getPriceAtPurchase(), item.getSubtotal(), imageUrl));
 		}
 
-		return new OrderResponse(order.getOrderId(), order.getTotalAmount(), order.getStatus().name(),
+		return new OrderResponse(order.getOrderId(), order.getUser().getUsername(), order.getUser().getEmail(),order.getTotalAmount(), order.getStatus().name(),
 				order.getCreatedAt(), itemResponses);
 
+	}
+	
+	@Override
+	public void cancelOrder(int orderId, int userId) {
+
+	    Order order = orderRepository.findById(orderId)
+	            .orElseThrow(() -> new RuntimeException("Order not found"));
+
+	    if (order.getUser().getUserId() != userId) {
+	        throw new RuntimeException("Unauthorized");
+	    }
+
+	    if (order.getStatus() != OrderStatus.PENDING &&
+	        order.getStatus() != OrderStatus.CONFIRMED) {
+
+	        throw new RuntimeException("Order cannot be cancelled.");
+	    }
+
+	    order.setStatus(OrderStatus.CANCELLED);
+
+	    orderRepository.save(order);
+
+	    
 	}
 
 }

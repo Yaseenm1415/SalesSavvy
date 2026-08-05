@@ -3,14 +3,16 @@ package com.app.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.app.entities.Category;
+
 public class ProductResponse {
 	private int productId;
 	private String name;
 	private String description;
 	private BigDecimal price;
 	private int stock;
-	private String categoryName;
-	private List<String> imageUrls;
+	private Category category;
+	private List<ProductImageResponse> images;
 
 	public ProductResponse() {
 		super();
@@ -18,15 +20,15 @@ public class ProductResponse {
 	}
 
 	public ProductResponse(int productId, String name, String description, BigDecimal price, int stock,
-			String categoryName, List<String>  imageUrls) {
+			Category category, List<ProductImageResponse> images) {
 		super();
 		this.productId = productId;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.stock = stock;
-		this.categoryName = categoryName;
-		this.imageUrls = imageUrls;
+		this.category = category;
+		this.images = images;
 	}
 
 	public int getProductId() {
@@ -69,29 +71,29 @@ public class ProductResponse {
 		this.stock = stock;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
-	public List<String>  getImageUrls() {
-		return imageUrls;
+	public List<ProductImageResponse> getImages() {
+		return images;
 	}
 
-	public void setImageUrls(List<String>  imageUrl) {
-		this.imageUrls = imageUrl;
+	public void setImages(List<ProductImageResponse> images) {
+		this.images = images;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductResponse [productId=" + productId + ", name=" + name + ", description=" + description
-				+ ", price=" + price + ", stock=" + stock + ", categoryName=" + categoryName + ", imageUrls=" + imageUrls
-				+ "]";
+				+ ", price=" + price + ", stock=" + stock + ", category=" + category + ", images=" + images + "]";
 	}
 
 	
-
-}
+	
+	
+	}

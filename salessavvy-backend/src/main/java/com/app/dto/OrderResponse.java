@@ -6,6 +6,8 @@ import java.util.List;
 
 public class OrderResponse {
 	private int orderId;
+	private String customerName;
+	private String customerEmail;
 	private BigDecimal totalAmount;
 	private String status;
 	private LocalDateTime createdAt;
@@ -15,10 +17,12 @@ public class OrderResponse {
 		super();
 	}
 
-	public OrderResponse(int orderId, BigDecimal totalAmount, String status, LocalDateTime createdAt,
-			List<OrderItemResponse> items) {
+	public OrderResponse(int orderId, String customerName, String customerEmail, BigDecimal totalAmount, String status,
+			LocalDateTime createdAt, List<OrderItemResponse> items) {
 		super();
 		this.orderId = orderId;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
 		this.totalAmount = totalAmount;
 		this.status = status;
 		this.createdAt = createdAt;
@@ -31,6 +35,22 @@ public class OrderResponse {
 
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 
 	public BigDecimal getTotalAmount() {
@@ -67,8 +87,9 @@ public class OrderResponse {
 
 	@Override
 	public String toString() {
-		return "OrderResponse [orderId=" + orderId + ", totalAmount=" + totalAmount + ", status=" + status
-				+ ", createdAt=" + createdAt + ", items=" + items + "]";
+		return "OrderResponse [orderId=" + orderId + ", customerName=" + customerName + ", customerEmail="
+				+ customerEmail + ", totalAmount=" + totalAmount + ", status=" + status + ", createdAt=" + createdAt
+				+ ", items=" + items + "]";
 	}
 
 }

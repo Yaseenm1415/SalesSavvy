@@ -1,3 +1,62 @@
+import { useEffect, useState } from "react";
+import { deleteCategory, getCategories } from "../services/adminCategoryService";
+import { useNavigate } from "react-router-dom";
+import "../css/adminCategory.css";
+import { toast } from "react-toastify";
+
 export default function Categories() {
-    return <h1>Category Page</h1>
+    const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
+
+    const loadCategories = async() => {
+        try {
+            const response = await getCategories();
+            setCategories(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadCategories();
+    },[]);
+
+    const handleDeleteCategory = async(id) => {
+        try {
+            await deleteCategory(id);
+            toast.success("Category deleted successfully");
+            loadCategories();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    return (
+        <div className="admin-categories">
+            <div className="page-header">
+                <h2>Categories</h2>
+                <button className="add-btn btn-click-effect" onClick={() => navigate("/admin/categories/new")}>+ Add Category</button>
+            </div>
+
+            <table className="categories-table">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {categories.map(category => (
+                        <tr key={category.categoryId}>
+                            <td>{category.categoryName}</td>
+                            <td>
+                                <button className="edit-btn btn-click-effect" onClick={() => navigate(`/admin/categories/edit/${category.categoryId}`)}>Edit</button>
+                                <button className="delete-btn btn-click-effect" onClick={() => handleDeleteCategory(category.categoryId)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    )
 }

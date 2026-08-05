@@ -26,8 +26,8 @@ public class SecurityConfig {
 				.logout(logout -> logout.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/api/user/register", "/api/user/login", "/admin/login", "/refresh", "/logout", "/api/products","/api/products/{id}",
-								"/uploads/**")
+						.requestMatchers("/api/user/register", "/api/user/login", "/admin/login", "/refresh", "/logout", "/api/products", "/api/products/{id}", "/api/categories",
+								"/api/categories/{id}", "/uploads/**")
 						.permitAll().requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated())
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

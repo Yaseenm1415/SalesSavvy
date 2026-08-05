@@ -14,5 +14,6 @@ public interface OrderServiceContract {
 	List<OrderResponse> getAllOrders();
 	OrderResponse updateOrderStatus(int orderId, OrderStatus status);
 	OrderResponse getOrderByIdForAdmin(int orderId);
+	void cancelOrder(int orderId, int userId);
 
 }

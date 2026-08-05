@@ -68,7 +68,7 @@ export default function Register() {
                         />
                     </div>
 
-                    <button type="submit" className="btn-primary-standard auth-btn">
+                    <button type="submit" className="btn-primary-standard auth-btn btn-click-effect">
                         Register
                     </button>
 

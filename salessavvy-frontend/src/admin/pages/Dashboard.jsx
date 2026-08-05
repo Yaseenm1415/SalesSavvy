@@ -4,19 +4,19 @@ import "../css/adminDashboard.css";
 export default function Dashboard() {
     const [dashboard, setDashboard] = useState(null);
     useEffect(() => {
+        const loadDashboard = async () => {
+            try {
+                const response = await getDashboard();
+                setDashboard(response);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         loadDashboard();
     }, []);
-
-    const loadDashboard = async () => {
-        try {
-            const response = await getDashboard();
-            setDashboard(response);
-        } catch (error) {
-            console.error(error);
-        }
-    };
     if(!dashboard) {
-        return <h2>Loading...</h2>;
+        return <div className="loading-indicator">Loading dashboard data...</div>;
     }
     return (
         <div className="dashboard-container">

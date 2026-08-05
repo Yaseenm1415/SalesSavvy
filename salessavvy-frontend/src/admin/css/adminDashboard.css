@@ -1,62 +1,85 @@
-.dashboard-container{
-    padding:20px;
+.dashboard-container {
+    width: 100%;
 }
 
-.dashboard-container h1{
-    margin-bottom:25px;
+.dashboard-container h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
 }
 
-.dashboard-cards{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:20px;
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
 }
 
-.dashboard-card{
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:25px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-    transition:.3s;
+.dashboard-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
 }
 
-.dashboard-card:hover{
-
-    transform:translateY(-4px);
+.dashboard-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--primary); /* default color border */
 }
 
-.dashboard-card h3{
-
-    color:#6b7280;
-
-    font-size:16px;
-
-    margin-bottom:15px;
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
 }
 
-.dashboard-card p{
-
-    font-size:34px;
-
-    font-weight:bold;
-
-    color:#1f2937;
+.dashboard-card h3 {
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
 }
 
-.revenue{
-
-    border-left:6px solid #16a34a;
+.dashboard-card p {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.1;
 }
 
-.pending{
+/* Revenue Card Highlight */
+.dashboard-card.revenue::before {
+    background-color: var(--success);
+}
 
-    border-left:6px solid #f59e0b;
+.dashboard-card.revenue p {
+    color: var(--success);
+}
+
+/* Pending Card Highlight */
+.dashboard-card.pending::before {
+    background-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
 }

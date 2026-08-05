@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import { getCurrentUser } from "../user/services/authService";
 import { LOGOUT_EVENT } from "../utils/authEvents";
@@ -6,6 +7,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
 
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const loadUser = async () => {
@@ -15,6 +17,8 @@ export function AuthProvider({ children }) {
             } catch (error) {
                 console.error(error);
                 setUser(null);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -34,7 +38,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, setUser, logout}}>
+        <AuthContext.Provider value={{user, setUser, logout, loading}}>
             {children}
         </AuthContext.Provider>
     );

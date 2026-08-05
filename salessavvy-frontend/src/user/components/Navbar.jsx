@@ -26,16 +26,16 @@ export default function Navbar() {
 
             <ul className="nav-links">
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/"><span className="nav-link-text">Home</span></Link>
                 </li>
                 {!user && (
                     <>
                         <li>
-                            <Link to="/login">Login</Link>
+                            <Link to="/login"><span className="nav-link-text">Login</span></Link>
                         </li>
 
                         <li>
-                            <Link to="/register">Register</Link>
+                            <Link to="/register"><span className="nav-link-text">Register</span></Link>
                         </li>
                     </>
                 )}
@@ -43,36 +43,18 @@ export default function Navbar() {
                 {user && user.role === "CUSTOMER" && (
                     <>
                         <li>
-                            <Link to="/cart">Cart</Link>
+                            <Link to="/cart"><span className="nav-link-text">Cart</span></Link>
                         </li>
                         <li>
-                            <Link to="/orders">Orders</Link>
+                            <Link to="/orders"><span className="nav-link-text">Orders</span></Link>
                         </li>
                         <li>
-                            <Link to="/profile">Profile</Link>
+                            <Link to="/profile"><span className="nav-link-text">Profile</span></Link>
                         </li>
                         <li>
-                            <button onClick={handleLogout}>Logout</button>
-                        </li>
-                    </>
-                )}
-
-                {user && user.role === "ADMIN" && (
-                    <>
-                        <li>
-                            <Link to="/admin/dashboard">Dashboard</Link>
-                        </li>
-                        <li>
-                            <Link to="/admin/products">Products</Link>
-                        </li>
-                        <li>
-                            <Link to="/admin/categories">Categories</Link>
-                        </li>
-                        <li>
-                            <Link to="/admin/orders">Orders</Link>
-                        </li>
-                        <li>
-                            <button onClick={handleLogout}>Logout</button>
+                            <button onClick={handleLogout} className="btn-click-effect">
+                                <span className="nav-link-text">Logout</span>
+                            </button>
                         </li>
                     </>
                 )}
