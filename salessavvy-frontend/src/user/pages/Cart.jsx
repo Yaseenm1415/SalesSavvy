@@ -19,7 +19,6 @@ export default function Cart() {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         loadCart();
     }, []);
 
@@ -75,7 +74,7 @@ export default function Cart() {
     return (
         <div className="cart-page-container">
             <h1 className="page-title">Shopping Cart</h1>
-            
+
             <div className="cart-layout">
                 <div className="cart-items-list">
                     {cartItems.map(item => (
@@ -93,20 +92,20 @@ export default function Cart() {
                                     {item.productName}
                                 </h3>
                                 <div className="item-price">₹{item.price}</div>
-                                
+
                                 <div className="item-controls-row">
                                     <div className="quantity-selector">
                                         <button className="qty-btn btn-click-effect" onClick={() => decreaseQuantity(item)}>-</button>
                                         <span className="qty-value">{item.quantity}</span>
                                         <button className="qty-btn btn-click-effect" onClick={() => increaseQuantity(item)}>+</button>
                                     </div>
-                                    
+
                                     <button className="remove-item-btn btn-click-effect" onClick={() => handleRemove(item.cartId)}>
                                         Remove
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div className="item-subtotal">
                                 <span>Subtotal</span>
                                 <strong>₹{item.subtotal}</strong>
@@ -133,7 +132,7 @@ export default function Cart() {
                                 <strong>₹{total.toFixed(2)}</strong>
                             </div>
                         </div>
-                        
+
                         <button className="proceed-checkout-btn btn-click-effect" onClick={handleCheckout}>
                             Proceed to Checkout
                         </button>

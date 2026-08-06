@@ -45,10 +45,10 @@ public class AuthController {
 		authService.saveRefreshToken(user, refreshToken);
 
 		ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(false)
-				.path("/").maxAge(15 * 60).domain("localhost").sameSite("Lax").build();
+				.path("/").maxAge(15 * 60).sameSite("Lax").build();
 
 		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken).httpOnly(true).secure(false)
-				.path("/").maxAge(7 * 24 * 60 * 60).domain("localhost").sameSite("Lax").build();
+				.path("/").maxAge(7 * 24 * 60 * 60).sameSite("Lax").build();
 
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, accessCookie.toString())
 				.header(HttpHeaders.SET_COOKIE, refreshCookie.toString()).body(Map.of("message", "Login successful",
@@ -77,10 +77,10 @@ public class AuthController {
 		}
 
 		ResponseCookie accessCookie = ResponseCookie.from("accessToken", "").httpOnly(true).secure(false).path("/")
-				.maxAge(0).domain("localhost").sameSite("Lax").build();
+				.maxAge(0).sameSite("Lax").build();
 
 		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "").httpOnly(true).secure(false).path("/")
-				.maxAge(0).domain("localhost").sameSite("Lax").build();
+				.maxAge(0).sameSite("Lax").build();
 
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, accessCookie.toString())
 				.header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
@@ -92,7 +92,8 @@ public class AuthController {
 
 		String refreshToken = getCookie(request, "refreshToken");
 
-		
+	    System.out.println("Refresh Token: " + refreshToken);
+
 
 		if (refreshToken == null) {
 			throw new AuthenticationException("Refresh token is missing");
@@ -102,6 +103,8 @@ public class AuthController {
 			throw new AuthenticationException("Invalid refresh token");
 
 		}
+	    System.out.println("Valid: " + authService.validateRefreshToken(refreshToken));
+
 
 		String username = authService.extractUsername(refreshToken);
 
@@ -112,7 +115,7 @@ public class AuthController {
 
 		ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(false)
 				.path("/").maxAge(15 * 60).sameSite("Lax").build();
-
+		
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, accessCookie.toString())
 				.body(Map.of("message", "Access token refreshed"));
 	}

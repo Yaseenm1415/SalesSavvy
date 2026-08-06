@@ -43,7 +43,6 @@ public class AdminAuthController {
 					.secure(false)
 					.path("/")
 					.maxAge(3600)
-					.domain("localhost")
 					.sameSite("Lax")
 					.build();
 			
@@ -52,7 +51,6 @@ public class AdminAuthController {
 					.secure(false)
 					.path("/")
 					.maxAge(3600)
-					.domain("localhost")
 					.sameSite("Lax")
 					.build();
 

@@ -1,4 +1,5 @@
 import Navbar from "../user/components/Navbar";
+import Footer from "../user/components/Footer";
 import { Outlet } from "react-router-dom";
 
 export default function UserLayout() {
@@ -8,6 +9,7 @@ export default function UserLayout() {
             <main className="main-content-wrapper">
                 <Outlet />
             </main>
+            <Footer />
         </div>
     );
 }

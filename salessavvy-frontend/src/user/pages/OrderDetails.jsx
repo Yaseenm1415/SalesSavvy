@@ -32,7 +32,6 @@ export default function OrderDetails() {
 
     const handlePayment = async () => {
         const payment = await createRazorpayOrder(order.orderId);
-        console.log(payment);
 
         const options = {
             key: payment.key,
@@ -42,12 +41,20 @@ export default function OrderDetails() {
 
             handler: async function (response) {
                 console.log(response);
-                await verifyPayment({
-                    orderId: order.orderId,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpaySignature: response.razorpay_signature
-                });
+                try {
+                    await verifyPayment({
+                        orderId: order.orderId,
+                        razorpayOrderId: response.razorpay_order_id,
+                        razorpayPaymentId: response.razorpay_payment_id,
+                        razorpaySignature: response.razorpay_signature
+                    });
+                    toast.success("Payment successful!");
+                    loadOrder();
+                } catch (error) {
+                    console.error(error);
+                    toast.error("Payment failed!");
+                }
+
             }
         };
         const razorpay = new window.Razorpay(options);
