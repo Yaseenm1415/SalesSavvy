@@ -40,18 +40,18 @@ public class AdminAuthController {
 
 			ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken)
 					.httpOnly(true)
-					.secure(false)
+					.secure(true)
 					.path("/")
 					.maxAge(3600)
-					.sameSite("Lax")
+					.sameSite("none")
 					.build();
 			
 			ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken)
 					.httpOnly(true)
-					.secure(false)
+					.secure(true)
 					.path("/")
 					.maxAge(3600)
-					.sameSite("Lax")
+					.sameSite("none")
 					.build();
 
 			return ResponseEntity.ok()

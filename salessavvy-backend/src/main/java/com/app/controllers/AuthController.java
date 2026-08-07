@@ -44,11 +44,11 @@ public class AuthController {
 		String refreshToken = authService.generateRefreshToken(user);
 		authService.saveRefreshToken(user, refreshToken);
 
-		ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(false)
-				.path("/").maxAge(15 * 60).sameSite("Lax").build();
+		ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(true)
+				.path("/").maxAge(15 * 60).sameSite("None").build();
 
-		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken).httpOnly(true).secure(false)
-				.path("/").maxAge(7 * 24 * 60 * 60).sameSite("Lax").build();
+		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken).httpOnly(true).secure(true)
+				.path("/").maxAge(7 * 24 * 60 * 60).sameSite("None").build();
 
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, accessCookie.toString())
 				.header(HttpHeaders.SET_COOKIE, refreshCookie.toString()).body(Map.of("message", "Login successful",
@@ -76,11 +76,11 @@ public class AuthController {
 			authService.logout(refreshToken);
 		}
 
-		ResponseCookie accessCookie = ResponseCookie.from("accessToken", "").httpOnly(true).secure(false).path("/")
-				.maxAge(0).sameSite("Lax").build();
+		ResponseCookie accessCookie = ResponseCookie.from("accessToken", "").httpOnly(true).secure(true).path("/")
+				.maxAge(0).sameSite("None").build();
 
-		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "").httpOnly(true).secure(false).path("/")
-				.maxAge(0).sameSite("Lax").build();
+		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "").httpOnly(true).secure(true).path("/")
+				.maxAge(0).sameSite("None").build();
 
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, accessCookie.toString())
 				.header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
@@ -113,8 +113,8 @@ public class AuthController {
 
 		String accessToken = authService.generateAccessToken(user);
 
-		ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(false)
-				.path("/").maxAge(15 * 60).sameSite("Lax").build();
+		ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken).httpOnly(true).secure(true)
+				.path("/").maxAge(15 * 60).sameSite("None").build();
 		
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, accessCookie.toString())
 				.body(Map.of("message", "Access token refreshed"));
