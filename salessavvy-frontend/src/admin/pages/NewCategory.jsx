@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createCategory } from "../services/adminCategoryService";
 import { useNavigate } from "react-router-dom";
-import "../css/edit-newcategory.css";
+import "../css/edit-newCategory.css";
 import { toast } from "react-toastify";
 
 export default function NewCategory() {
