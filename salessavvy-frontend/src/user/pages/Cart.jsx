@@ -81,7 +81,7 @@ export default function Cart() {
                         <div className="cart-item" key={item.cartId}>
                             <div className="item-image-wrapper">
                                 <img
-                                    src={`https://salessavvy-backend-8f97.onrender.com${item.imageUrl}`}
+                                    src={item.imageUrl}
                                     alt={item.productName}
                                     onClick={() => navigate(`/products/${item.productId}`)}
                                 />

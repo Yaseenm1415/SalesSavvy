@@ -232,7 +232,7 @@ export default function ProductForm({ mode }) {
                     {existingImages.map(image => (
                         <div key={image.imageId} className="existing-image-card">
                             <img
-                                src={`https://salessavvy-backend-8f97.onrender.com ${image.imageUrl}`}
+                                src={image.imageUrl}
                                 alt=""
                             />
 

@@ -47,13 +47,13 @@ export default function ProductDetails() {
         <div className="product-details-container">
             <div className="product-gallery-section">
                 <div className="main-image-wrapper">
-                    <img src={`https://salessavvy-backend-8f97.onrender.com${product.images?.[selectedImage]?.imageUrl}`}
+                    <img src={product.images?.[selectedImage]?.imageUrl}
                         alt={product.name} />
                 </div>
 
                 <div className="thumbnails-wrapper">
                     {product.images?.map((image, index) => (
-                        <img src={`https://salessavvy-backend-8f97.onrender.com${image.imageUrl}`}
+                        <img src={image.imageUrl}
                             key={image.imageId}
                             className={selectedImage === index ? "active" : ""}
                             alt=""
