@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import { getCategoryById, updateCategory } from "../services/adminCategoryService";
-import "../css/edit-newcategory.css";
+import "../css/edit-newCategory.css";
 import { toast } from "react-toastify";
 
 export default function EditCategory() {
@@ -16,20 +16,20 @@ export default function EditCategory() {
         } catch (error) {
             console.error(error);
         }
-       
+
     }
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         loadCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleUpdateCategory = async (e) => {
         e.preventDefault();
 
         try {
-            await updateCategory(id, {categoryName});
+            await updateCategory(id, { categoryName });
             toast.success("Category Updated successfully!");
             navigate("/admin/categories");
         } catch (error) {
@@ -48,7 +48,7 @@ export default function EditCategory() {
                     value={categoryName}
                     onChange={(e) => setCategoryName(e.target.value)}
                     required
-                />   
+                />
                 <button type="submit" className="submit-btn btn-click-effect">Update Category</button>
             </form>
         </div>
