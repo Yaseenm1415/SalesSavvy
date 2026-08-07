@@ -50,14 +50,14 @@ export default function ProductForm({ mode }) {
 
     useEffect(() => {
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+        
         loadCategories();
 
         if (mode === "edit") {
             loadProduct();
         }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
     const handleChange = (e) => {
@@ -232,7 +232,7 @@ export default function ProductForm({ mode }) {
                     {existingImages.map(image => (
                         <div key={image.imageId} className="existing-image-card">
                             <img
-                                src={`http://localhost:9090${image.imageUrl}`}
+                                src={`https://salessavvy-backend-8f97.onrender.com ${image.imageUrl}`}
                                 alt=""
                             />
 

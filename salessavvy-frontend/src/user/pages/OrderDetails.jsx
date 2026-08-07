@@ -21,9 +21,9 @@ export default function OrderDetails() {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+        
         loadOrder();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [orderId]);
 
     if (!order) {
@@ -110,7 +110,7 @@ export default function OrderDetails() {
                     {order.items.map(item => (
                         <div key={item.productId} className="order-item-row">
                             <div className="item-img-container">
-                                <img src={`http://localhost:9090${item.imageUrl}`}
+                                <img src={`https://salessavvy-backend-8f97.onrender.com${item.imageUrl}`}
                                     alt={item.productName} />
                             </div>
                             <div className="item-details-container">

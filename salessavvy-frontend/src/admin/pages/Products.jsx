@@ -65,7 +65,7 @@ export default function Products() {
                                 <td>
                                     <img
                                         src={product.images?.length > 0
-                                            ? `http://localhost:9090${product.images[0].imageUrl}`
+                                            ? `https://salessavvy-backend-8f97.onrender.com${product.images[0].imageUrl}`
                                             : "/no-image.png"}
                                         alt={product.name}
                                         className="product-image"

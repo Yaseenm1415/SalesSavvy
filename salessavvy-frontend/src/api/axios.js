@@ -2,7 +2,7 @@ import axios from "axios";
 import { LOGOUT_EVENT } from "../utils/authEvents";
 
 const api = axios.create({
-    baseURL: "http://localhost:9090",
+    baseURL: "https://salessavvy-backend-8f97.onrender.com",
     withCredentials: true,
 });
 

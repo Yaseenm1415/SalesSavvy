@@ -20,23 +20,26 @@ public class ProductImage {
 	private Product product;
 	@Column
 	private String imageUrl;
+	@Column
+	private String publicId;
 
 	public ProductImage() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public ProductImage(Product product, String imageUrl) {
-		super();
-		this.product = product;
-		this.imageUrl = imageUrl;
-	}
-
-	public ProductImage(int imageId, Product product, String imageUrl) {
+	public ProductImage(int imageId, Product product, String imageUrl, String publicId) {
 		super();
 		this.imageId = imageId;
 		this.product = product;
 		this.imageUrl = imageUrl;
+		this.publicId = publicId;
+	}
+
+	public ProductImage(Product product, String imageUrl, String publicId) {
+		super();
+		this.product = product;
+		this.imageUrl = imageUrl;
+		this.publicId = publicId;
 	}
 
 	public int getImageId() {
@@ -63,9 +66,18 @@ public class ProductImage {
 		this.imageUrl = imageUrl;
 	}
 
+	public String getPublicId() {
+		return publicId;
+	}
+
+	public void setPublicId(String publicId) {
+		this.publicId = publicId;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductImage [imageId=" + imageId + ", product=" + product + ", imageUrl=" + imageUrl + "]";
+		return "ProductImage [imageId=" + imageId + ", product=" + product + ", imageUrl=" + imageUrl + ", publicId="
+				+ publicId + "]";
 	}
 
 }

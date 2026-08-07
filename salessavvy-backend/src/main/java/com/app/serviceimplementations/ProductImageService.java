@@ -1,12 +1,9 @@
 package com.app.serviceimplementations;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,50 +16,58 @@ import com.app.exceptions.NotFoundException;
 import com.app.repositories.ProductImageRepository;
 import com.app.repositories.ProductRepository;
 import com.app.services.ProductImageServiceContract;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class ProductImageService implements ProductImageServiceContract {
 
-	ProductImageRepository productImageRepository;
-	ProductRepository productRepository;
+	private final ProductImageRepository productImageRepository;
+	private final ProductRepository productRepository;
+	private final Cloudinary cloudinary;
+	
 
-	public ProductImageService(ProductImageRepository productImageRepository, ProductRepository productRepository) {
+	public ProductImageService(ProductImageRepository productImageRepository, ProductRepository productRepository,
+			Cloudinary cloudinary) {
 		super();
 		this.productImageRepository = productImageRepository;
 		this.productRepository = productRepository;
+		this.cloudinary = cloudinary;
 	}
 
 	@Override
-	public List<ProductImage>  uploadImages(int productId, MultipartFile[] files) {
-		Product product = productRepository.findById(productId)
-				.orElseThrow(() -> new NotFoundException("product not found"));
+	public List<ProductImage> uploadImages(int productId, MultipartFile[] files) {
 
-		String uploadDi = "uploads/";
-		
-		List<ProductImage> uploadedImages = new ArrayList<>();
-		
-		for(MultipartFile file : files) {
-			
-		
-		String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+	    Product product = productRepository.findById(productId)
+	            .orElseThrow(() -> new NotFoundException("Product not found"));
 
-		Path path = Paths.get(uploadDi, fileName);
+	    List<ProductImage> uploadedImages = new ArrayList<>();
 
-		try {
-			Files.createDirectories(path.getParent());
-			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			throw new FailedException("Failed to save image: " + file.getOriginalFilename());
-		}
+	    for (MultipartFile file : files) {
 
-		ProductImage image = new ProductImage();
+	        try {
 
-		image.setProduct(product);
-		image.setImageUrl("/uploads/" + fileName);
-		uploadedImages.add(productImageRepository.save(image));
-	}
-		return uploadedImages;
+	            Map<?, ?> uploadResult = cloudinary.uploader().upload(
+	                    file.getBytes(),
+	                    ObjectUtils.emptyMap()
+	            );
 
+	            String imageUrl = uploadResult.get("secure_url").toString();
+	            String publicId = uploadResult.get("public_id").toString();
+	            
+	            ProductImage image = new ProductImage();
+	            image.setProduct(product);
+	            image.setImageUrl(imageUrl);
+	            image.setPublicId(publicId);
+
+	            uploadedImages.add(productImageRepository.save(image));
+
+	        } catch (IOException e) {
+	            throw new FailedException("Failed to upload image: " + file.getOriginalFilename());
+	        }
+	    }
+
+	    return uploadedImages;
 	}
 
 	@Override
@@ -76,21 +81,20 @@ public class ProductImageService implements ProductImageServiceContract {
 	@Transactional
 	@Override
 	public void deleteImage(int imageId) {
-		ProductImage image = productImageRepository.findById(imageId)
-				.orElseThrow(() -> new NotFoundException("Image not found"));
 
-		String imagePath = image.getImageUrl();
+	    ProductImage image = productImageRepository.findById(imageId)
+	            .orElseThrow(() -> new NotFoundException("Image not found"));
 
-		Path filePath = Paths.get(imagePath.replaceFirst("^/", ""));
+	    try {
+	        cloudinary.uploader().destroy(
+	                image.getPublicId(),
+	                ObjectUtils.emptyMap()
+	        );
+	    } catch (IOException e) {
+	        throw new FailedException("Failed to delete image from Cloudinary");
+	    }
 
-		try {
-			Files.deleteIfExists(filePath);
-		} catch (IOException e) {
-			throw new NotFoundException("Failed to delete image file: " + imagePath);
-		}
-
-		productImageRepository.delete(image);
-
+	    productImageRepository.delete(image);
 	}
 
 }

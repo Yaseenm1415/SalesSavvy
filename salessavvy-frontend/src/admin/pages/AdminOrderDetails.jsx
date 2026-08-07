@@ -27,9 +27,8 @@ export default function AdminOrderDetails() {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         loadOrder();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     }, []);
 
     const handleUpdateStatus = async () => {
@@ -158,7 +157,7 @@ export default function AdminOrderDetails() {
                     >
 
                         <img
-                            src={`http://localhost:9090${item.imageUrl}`}
+                            src={`${item.imageUrl}`}
                             alt={item.productName}
                         />
 
