@@ -110,7 +110,7 @@ export default function OrderDetails() {
                     {order.items.map(item => (
                         <div key={item.productId} className="order-item-row">
                             <div className="item-img-container">
-                                <img src={`https://salessavvy-backend-8f97.onrender.com${item.imageUrl}`}
+                                <img src={item.imageUrl}
                                     alt={item.productName} />
                             </div>
                             <div className="item-details-container">
