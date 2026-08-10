@@ -2,6 +2,10 @@
 
 A modern full-stack e-commerce application built with **Spring Boot**, **React.js**, and **MySQL**, featuring secure authentication, role-based authorization, online payments, and an admin dashboard.
 
+## 🚀 Live Demo
+
+[Visit SalesSavvy](https://sales-savvy-9qai-nine.vercel.app/)
+
 ## ✨ Features
 
 ### 👤 Authentication & Security
