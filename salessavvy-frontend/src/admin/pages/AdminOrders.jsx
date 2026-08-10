@@ -5,7 +5,7 @@ import "../css/adminOrders.css";
 
 export default function AdminOrders() {
 
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,6 +20,10 @@ export default function AdminOrders() {
 
         loadOrders();
     }, []);
+
+    if (!orders) {
+        return <div className="loading-indicator">Loading orders...</div>;
+    }
 
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString("en-IN", {

@@ -5,7 +5,7 @@ import "../css/adminCategory.css";
 import { toast } from "react-toastify";
 
 export default function Categories() {
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(null);
     const navigate = useNavigate();
 
     const loadCategories = async() => {
@@ -18,9 +18,12 @@ export default function Categories() {
     }
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         loadCategories();
     },[]);
+
+    if (!categories) {
+        return <div className="loading-indicator">Loading categories...</div>;
+    }
 
     const handleDeleteCategory = async(id) => {
         try {

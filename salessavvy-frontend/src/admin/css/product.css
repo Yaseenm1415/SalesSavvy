@@ -28,16 +28,18 @@
 .add-btn {
     padding: 12px 22px;
     border: none;
-    background: #2563eb;
+    background: var(--primary);
     color: white;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     font-weight: 600;
-    transition: .25s;
+    transition: var(--transition-smooth);
 }
 
 .add-btn:hover {
-    background: #1d4ed8;
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsla(var(--primary-hue), var(--primary-sat), var(--primary-lightness), 0.2);
 }
 
 .product-table {
@@ -47,8 +49,8 @@
 }
 
 .product-table thead {
-    background: #2563eb;
-    color: white;
+    background: #0f172a;
+    color: #f1f5f9;
 }
 
 .product-table th,
@@ -109,12 +111,12 @@
 }
 
 .edit-btn {
-    background: #2563eb;
+    background: var(--primary);
     color: white;
 }
 
 .edit-btn:hover {
-    background: #1d4ed8;
+    background: var(--primary-hover);
 }
 
 .delete-btn {

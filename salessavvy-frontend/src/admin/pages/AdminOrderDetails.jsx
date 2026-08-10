@@ -28,7 +28,7 @@ export default function AdminOrderDetails() {
 
     useEffect(() => {
         loadOrder();
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleUpdateStatus = async () => {

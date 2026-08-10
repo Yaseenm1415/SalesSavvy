@@ -19,18 +19,20 @@
 
 .add-btn {
     padding: 10px 20px;
-    background: #2563eb;
+    background: var(--primary);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.25s;
+    transition: var(--transition-smooth);
 }
 
 .add-btn:hover {
-    background: #1d4ed8;
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsla(var(--primary-hue), var(--primary-sat), var(--primary-lightness), 0.2);
 }
 
 .categories-table {
@@ -43,8 +45,8 @@
 }
 
 .categories-table thead {
-    background: #2563eb;
-    color: white;
+    background: #0f172a;
+    color: #f1f5f9;
 }
 
 .categories-table th,
@@ -88,13 +90,13 @@
 }
 
 .edit-btn {
-    background: #2563eb;
+    background: var(--primary);
     color: white;
     margin-right: 10px;
 }
 
 .edit-btn:hover {
-    background: #1d4ed8;
+    background: var(--primary-hover);
 }
 
 .delete-btn {

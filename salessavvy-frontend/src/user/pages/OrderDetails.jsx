@@ -21,9 +21,8 @@ export default function OrderDetails() {
     };
 
     useEffect(() => {
-        
         loadOrder();
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderId]);
 
     if (!order) {
@@ -78,6 +77,7 @@ export default function OrderDetails() {
 
             loadOrder();
 
+            
         } catch (error) {
 
             console.error(error);
@@ -108,9 +108,10 @@ export default function OrderDetails() {
                 <div className="order-items-list">
                     <h3>Items in Order</h3>
                     {order.items.map(item => (
+                        
                         <div key={item.productId} className="order-item-row">
                             <div className="item-img-container">
-                                <img src={`https://salessavvy-backend-8f97.onrender.com${item.imageUrl}`}
+                                <img src={item.imageUrl}
                                     alt={item.productName} />
                             </div>
                             <div className="item-details-container">

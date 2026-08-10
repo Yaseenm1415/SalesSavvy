@@ -27,8 +27,8 @@
 }
 
 .orders-table thead {
-    background: #2563eb;
-    color: white;
+    background: #0f172a;
+    color: #f1f5f9;
 }
 
 .orders-table th,
@@ -110,17 +110,17 @@
 .view-btn {
     padding: 8px 18px;
     border: none;
-    border-radius: 8px;
-    background: #2563eb;
+    border-radius: var(--radius-md);
+    background: var(--primary);
     color: white;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    transition: 0.2s;
+    transition: var(--transition-smooth);
 }
 
 .view-btn:hover {
-    background: #1d4ed8;
+    background: var(--primary-hover);
 }
 
 /* Empty Row */

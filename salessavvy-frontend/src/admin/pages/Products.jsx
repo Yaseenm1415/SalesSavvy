@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export default function Products() {
 
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(null);
     const navigate = useNavigate();
 
     const loadProducts = async () => {

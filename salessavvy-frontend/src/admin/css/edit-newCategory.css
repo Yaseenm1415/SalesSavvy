@@ -36,26 +36,27 @@
 }
 
 .category-form input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px hsla(var(--primary-hue), var(--primary-sat), var(--primary-lightness), 0.15);
 }
 
 .submit-btn {
     margin-top: 10px;
     padding: 12px;
     border: none;
-    border-radius: 8px;
-    background: #2563eb;
+    border-radius: var(--radius-md);
+    background: var(--primary);
     color: #ffffff;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.25s;
+    transition: var(--transition-smooth);
 }
 
 .submit-btn:hover {
-    background: #1d4ed8;
+    background: var(--primary-hover);
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsla(var(--primary-hue), var(--primary-sat), var(--primary-lightness), 0.2);
 }
 
 .submit-btn:active {

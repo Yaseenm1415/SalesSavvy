@@ -49,15 +49,12 @@ export default function ProductForm({ mode }) {
     };
 
     useEffect(() => {
-
-        
         loadCategories();
 
         if (mode === "edit") {
             loadProduct();
         }
-
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChange = (e) => {
